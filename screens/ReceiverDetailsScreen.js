@@ -9,15 +9,15 @@ export default class ReceiverDetailsScreen extends Component{
   constructor(props){
     super(props);
     this.state={
-      userId          : firebase.auth().currentUser.email,
-      userName          :'',
-      receiverId      : this.props.navigation.getParam('details')["username"],
-      exchangeId       : this.props.navigation.getParam('details')["exchangeId"],
-      itemName        : this.props.navigation.getParam('details')["item_name"],
-      description  : this.props.navigation.getParam('details')["description"],
-      receiverName    : '',
-      receiverContact : '',
-      receiverAddress : '',
+      userId              : firebase.auth().currentUser.email,
+      userName            :'',
+      receiverId          : this.props.navigation.getParam('details')["username"],
+      exchangeId        : this.props.navigation.getParam('details')["exchangeId"],
+      itemName          : this.props.navigation.getParam('details')["item_name"],
+      description       : this.props.navigation.getParam('details')["description"],
+      receiverName      : '',
+      receiverContact   : '',
+      receiverAddress   : '',
       receiverRequestDocId : ''
     }
   }
