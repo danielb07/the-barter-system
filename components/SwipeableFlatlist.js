@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dimensions, View, Text} from 'react-native'
+import {Dimensions, View, Text,StyleSheet} from 'react-native'
 
 import { ListItem, Icon } from 'react-native-elements';
 
