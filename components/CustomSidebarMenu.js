@@ -61,6 +61,10 @@ export default class CustomSidebarMenu extends Component{
         })
   }
 
+  componentDidMount(){
+    this.selectPicture();
+  }
+
   render(){
     return(
       <View style={{flex:1}}>
