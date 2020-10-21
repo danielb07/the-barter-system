@@ -15,8 +15,11 @@ export default class Exchange extends Component {
       requestedItemName:"",
       exchangeId:"",
       itemStatus:"",
-      docId: ""
-
+      docId: "",
+      currencyCode:"",
+      amount:"",
+      value:"",
+      
     }
   }
 
@@ -47,7 +50,6 @@ export default class Exchange extends Component {
      })
    })
  })
-
      this.setState({
        itemName : '',
        description :''
@@ -100,7 +102,8 @@ export default class Exchange extends Component {
             exchangeId : doc.data().exchangeId,
             requestedItemName: doc.data().item_name,
             itemStatus:doc.data().item_status,
-            docId     : doc.id
+            docId     : doc.id,
+            currency:doc.data().currency
           })
         }
       })
@@ -110,6 +113,7 @@ export default class Exchange extends Component {
   componentDidMount(){
     this.getExchangeRequest()
     this.getIsExchangeRequestActive()
+    this.getData()
 
   }
 
@@ -173,6 +177,23 @@ export default class Exchange extends Component {
     })
   }
 
+  getData(){
+    fetch("http://data.fixer.io/api/latest?access_key=424d0136352ffc783e52ccb3ee96bfb5&format=1")
+    .then(respone=>respone=>{
+      return Response.json();
+    }).then(responseData=>{
+      var currencyCode = this.state.currencyCode
+      var amount = this.state.amount
+      var exchange = responseData.rates[currencyCode]
+      var value = amount / exchange
+      this.setState({
+        value:value
+      })
+
+    })
+
+  }
+
   render()
   {
     if (this.state.IsExchangeRequestActive === true){
@@ -187,6 +208,12 @@ export default class Exchange extends Component {
          <Text> Item Status </Text>
 
          <Text>{this.state.itemStatus}</Text>
+         </View>
+
+         <View style={{borderColor:"orange",borderWidth:2,justifyContent:'center',alignItems:'center',padding:10,margin:10}}>
+         <Text> Value </Text>
+
+         <Text>{this.state.value}</Text>
          </View>
 
          <TouchableOpacity style={{borderWidth:1,borderColor:'orange',backgroundColor:"orange",width:300,alignSelf:'center',alignItems:'center',height:30,marginTop:30}}
@@ -229,6 +256,15 @@ export default class Exchange extends Component {
             }}
             value={this.state.description}
 
+          />
+          <TextInput
+          style={style.formTextInput}
+          placeholder={"Value"}
+          onChangeText={(text)=>{
+            this.setState({
+              amount:text
+            })
+          }}
           />
           <TouchableOpacity
             style={[styles.button,{marginTop:10}]}
